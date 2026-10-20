@@ -20,7 +20,7 @@ function rows(): ContactRow[] {
       id: "linkedin",
       label: "LinkedIn",
       value: site.linkedin
-        ? site.linkedin.replace(/^https?:\/\//, "")
+        ? site.linkedin.replace(/^https?:\/\/(?:www\.)?/, "")
         : "Available on request",
       href: site.linkedin,
     },
@@ -46,7 +46,7 @@ export function Contact() {
       index="07"
       label="Contact"
       title="Reach me."
-      lede="Email is the direct path. LinkedIn and a resume are available on request."
+      lede="Email and LinkedIn are the direct paths. A resume is available on request."
     >
       <ul className="divide-y divide-line border-y border-line">
         {rows().map((row) => (
