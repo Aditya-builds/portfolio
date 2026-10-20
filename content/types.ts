@@ -3,8 +3,12 @@ export type ProjectStatus = "shipped" | "private" | "sketch";
 export type Project = {
   id: string;
   name: string;
-  /** One or two accurate sentences. */
+  /** What changed for a user of the project. Shown first. */
+  outcome: string;
+  /** How it is built. Shown after the outcome. */
   summary: string;
+  /** Solo build, Full stack, Full stack + agent, and similar. */
+  role: string;
   stack: string[];
   /** Year the repository was actively worked on, when known. */
   year?: number;
@@ -16,17 +20,15 @@ export type Project = {
    * Omit for private work with no public URL.
    */
   repo?: string;
+  /** Featured projects render on the page. Others stay in this file only. */
   featured: boolean;
 };
 
 export type ExperienceEntry = {
   id: string;
   role: string;
-  /**
-   * TODO: employer name. Set this when it can be public.
-   * Leave null to keep the on-site TODO marker.
-   */
-  organization: string | null;
+  /** Employer name, or "Available on request". */
+  organization: string;
   /** Human label such as "About two years" or "2024 — Present". */
   period: string;
   summary: string;

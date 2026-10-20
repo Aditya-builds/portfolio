@@ -7,13 +7,13 @@ export function Skills() {
       id="skills"
       index="05"
       label="Skills"
-      title="What the work is built with."
-      lede="Taken from the job and the repositories, not a wishlist."
+      title="The toolkit."
+      lede="Languages and tools from the job and the public repositories."
     >
-      <ul className="grid gap-8 sm:grid-cols-2">
+      <ul className="grid gap-4 sm:grid-cols-2">
         {skills.map((group) => (
-          <li key={group.id} className="border-t border-line pt-4">
-            <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+          <li key={group.id} className="border border-line bg-raised p-5">
+            <h3 className="font-mono text-sm text-muted">
               {group.label}
             </h3>
             <ul className="mt-4 space-y-2">

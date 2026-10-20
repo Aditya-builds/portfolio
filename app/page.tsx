@@ -7,7 +7,7 @@ import { OpenSource } from "@/components/open-source";
 import { Projects } from "@/components/projects";
 import { SiteShell } from "@/components/site-shell";
 import { Skills } from "@/components/skills";
-import { paletteItems, projectViews } from "@/lib/projects";
+import { paletteItems, projectViews, statsUpdatedLabel } from "@/lib/projects";
 
 export default function HomePage() {
   const projects = projectViews();
@@ -19,7 +19,7 @@ export default function HomePage() {
         <Hero />
         <About />
         <Experience />
-        <Projects projects={projects} />
+        <Projects projects={projects} statsLabel={statsUpdatedLabel()} />
         <Skills />
         <OpenSource />
         <Contact />

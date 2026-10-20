@@ -11,9 +11,12 @@ async function readPrevious() {
   try {
     const raw = await readFile(statsPath, "utf8");
     const parsed = JSON.parse(raw);
-    return parsed?.repos && typeof parsed.repos === "object" ? parsed.repos : {};
+    return {
+      fetchedAt: typeof parsed?.fetchedAt === "string" ? parsed.fetchedAt : null,
+      repos: parsed?.repos && typeof parsed.repos === "object" ? parsed.repos : {},
+    };
   } catch {
-    return {};
+    return { fetchedAt: null, repos: {} };
   }
 }
 
@@ -54,22 +57,27 @@ async function fetchRepo(name) {
 async function main() {
   const source = await readFile(projectsPath, "utf8");
   const names = [...new Set(repoNames(source))];
-  const repos = await readPrevious();
+  const previous = await readPrevious();
+  const repos = previous.repos;
+  let complete = names.length > 0;
 
   for (const name of names) {
     try {
       const stat = await fetchRepo(name);
       if (stat) {
         repos[name] = stat;
+      } else {
+        complete = false;
       }
     } catch (error) {
+      complete = false;
       const message = error instanceof Error ? error.message : "unknown error";
       console.warn(`GitHub request failed for ${name}: ${message}`);
     }
   }
 
   const payload = {
-    fetchedAt: new Date().toISOString(),
+    fetchedAt: complete ? new Date().toISOString() : previous.fetchedAt,
     repos,
   };
 

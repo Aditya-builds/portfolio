@@ -7,8 +7,12 @@ import { formatMonthYear } from "@/lib/format";
 
 const stats = statsFile as GithubStatsFile;
 
+export function statsUpdatedLabel(): string | null {
+  return stats.fetchedAt ? formatMonthYear(stats.fetchedAt) : null;
+}
+
 export function projectViews(): ProjectView[] {
-  return projects.map((project) => {
+  return projects.filter((project) => project.featured).map((project) => {
     const repoUrl = project.repo ? `${site.github}/${project.repo}` : null;
     const live = project.repo ? stats.repos[project.repo] : undefined;
 

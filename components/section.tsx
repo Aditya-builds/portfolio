@@ -21,24 +21,24 @@ export function Section({
       id={id}
       tabIndex={-1}
       aria-labelledby={`${id}-title`}
-      className="scroll-mt-24 border-t border-line py-20 outline-none md:py-28"
+      className="border-t border-line py-16 outline-none md:py-24"
     >
-      <Reveal className="mx-auto grid w-full max-w-6xl gap-10 px-5 md:grid-cols-12 md:px-8">
-        <div className="md:col-span-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
+      <Reveal className="mx-auto grid w-full max-w-6xl gap-8 px-5 md:grid-cols-12 md:px-8">
+        <div className="min-w-0 md:col-span-4">
+          <p className="font-mono text-sm text-muted">
             {index} — {label}
           </p>
           <h2
             id={`${id}-title`}
-            className="mt-4 max-w-xs font-serif text-4xl leading-[1.05] md:text-5xl"
+            className="mt-3 max-w-xs text-[2rem] leading-tight tracking-[-0.03em]"
           >
             {title}
           </h2>
           {lede ? (
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{lede}</p>
+            <p className="mt-3 max-w-xs text-base leading-[1.65] text-muted">{lede}</p>
           ) : null}
         </div>
-        <div className="md:col-span-8">{children}</div>
+        <div className="min-w-0 md:col-span-8">{children}</div>
       </Reveal>
     </section>
   );

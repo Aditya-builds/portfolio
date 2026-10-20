@@ -13,11 +13,13 @@ export function CommandPalette({
   session,
   items,
   onOpenChange,
+  onNavigate,
 }: {
   open: boolean;
   session: number;
   items: PaletteItem[];
   onOpenChange: (open: boolean) => void;
+  onNavigate: (href: string) => void;
 }) {
   return (
     <AnimatePresence>
@@ -26,6 +28,7 @@ export function CommandPalette({
           key={session}
           items={items}
           onOpenChange={onOpenChange}
+          onNavigate={onNavigate}
         />
       ) : null}
     </AnimatePresence>
@@ -35,9 +38,11 @@ export function CommandPalette({
 function PaletteDialog({
   items,
   onOpenChange,
+  onNavigate,
 }: {
   items: PaletteItem[];
   onOpenChange: (open: boolean) => void;
+  onNavigate: (href: string) => void;
 }) {
   const reduce = useReducedMotion();
   const titleId = useId();
@@ -57,17 +62,9 @@ function PaletteDialog({
 
   const visit = useCallback(
     (item: PaletteItem) => {
-      onOpenChange(false);
-      const id = item.href.replace("#", "");
-      const target = document.getElementById(id);
-      if (!target) return;
-      target.scrollIntoView({
-        behavior: reduce ? "auto" : "smooth",
-        block: "start",
-      });
-      target.focus({ preventScroll: true });
+      onNavigate(item.href);
     },
-    [onOpenChange, reduce],
+    [onNavigate],
   );
 
   useEffect(() => {
@@ -162,7 +159,7 @@ function PaletteDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="w-full max-w-xl border border-line bg-background shadow-2xl"
+        className="w-full max-w-xl border border-line bg-modal shadow-2xl"
         initial={reduce ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={reduce ? undefined : { opacity: 0, y: 8 }}
@@ -197,7 +194,9 @@ function PaletteDialog({
           className="max-h-[50vh] overflow-auto py-2"
         >
           {results.length === 0 ? (
-            <li className="px-4 py-6 text-sm text-muted">No matches.</li>
+                <li className="px-4 py-6 text-base text-muted">
+                  No matches. Try a section or project name.
+                </li>
           ) : (
             results.map((item, index) => {
               const selected = index === boundedActive;
@@ -216,11 +215,11 @@ function PaletteDialog({
                   >
                     <span>
                       <span className="block text-sm">{item.label}</span>
-                      <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                      <span className="mt-1 block font-mono text-sm text-muted">
                         {item.group}
                       </span>
                     </span>
-                    <span className="font-mono text-[11px] text-muted">{item.hint}</span>
+                        <span className="font-mono text-sm text-muted">{item.hint}</span>
                   </button>
                 </li>
               );
