@@ -1,0 +1,35 @@
+# Static site on Render. https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: aditya-kumar
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: out
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Used at build time for canonical and Open Graph URLs.
+      # Change this if the service is renamed or a custom domain is added, then redeploy.
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://aditya-kumar.onrender.com
+      # Optional. Raises the GitHub API rate limit while refreshing content/github-stats.json.
+      # Not exposed to the browser. Leave unset unless builds start failing on rate limits.
+      - key: GITHUB_TOKEN
+        sync: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+      - path: /_next/static/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
