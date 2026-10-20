@@ -103,7 +103,7 @@ In `content/site.ts`:
 | --- | --- |
 | `email` | Already a `mailto:` link from the public commit address. Change it if you use a different inbox. |
 | `linkedin` | Full profile URL. Currently `https://www.linkedin.com/in/aditya-kumar-601538350`. Set it to `null` to show "Available on request" instead of a link. |
-| `resumeHref` | Put the PDF in `public/` (for example `public/resume.pdf`) and set this to `"/resume.pdf"`. Until then the site says "Available on request". |
+| `resumeHref` | Currently `"/resume.pdf"` (`public/resume.pdf`). Set it to `null` to show "Available on request" instead of a download. |
 
 In `content/experience.ts`, replace `organization` (`"Available on request"`) with the employer name when it can be public.
 

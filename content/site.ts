@@ -3,8 +3,7 @@
  *
  * Email comes from public commits on github.com/Aditya-builds.
  * `linkedin` is the public profile, without share-tracking query parameters.
- * For a resume, add `public/resume.pdf` and set `resumeHref` to "/resume.pdf".
- * Until then the site says the resume is available on request.
+ * `resumeHref` points at `public/resume.pdf`, copied from Google Drive.
  */
 export const site = {
   name: "Aditya Kumar",
@@ -16,7 +15,7 @@ export const site = {
   githubHandle: "Aditya-builds",
   email: "aditya.rebuild@gmail.com",
   linkedin: "https://www.linkedin.com/in/aditya-kumar-601538350" as string | null,
-  resumeHref: null as string | null,
+  resumeHref: "/resume.pdf" as string | null,
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://aditya-kumar.onrender.com",
 } as const;

@@ -46,7 +46,7 @@ export function Contact() {
       index="07"
       label="Contact"
       title="Reach me."
-      lede="Email and LinkedIn are the direct paths. A resume is available on request."
+      lede="Email, LinkedIn, and the resume are the direct paths."
     >
       <ul className="divide-y divide-line border-y border-line">
         {rows().map((row) => (
