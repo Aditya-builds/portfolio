@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { publicProfiles, site } from "@/content/site";
 import "./globals.css";
 
@@ -13,15 +13,8 @@ const mono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-const serif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
-});
-
 export const viewport: Viewport = {
-  themeColor: "#090909",
+  themeColor: "#0a0b10",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -78,6 +71,7 @@ export default function RootLayout({
     name: site.name,
     jobTitle: site.role,
     url: site.siteUrl,
+    email: site.email,
     sameAs: publicProfiles(),
     description: site.description,
     knowsAbout: [
@@ -95,7 +89,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${mono.variable} ${serif.variable} h-full antialiased`}
+      className={`${sans.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background font-sans text-foreground">
         <script

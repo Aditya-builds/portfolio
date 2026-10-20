@@ -15,8 +15,8 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#090909",
-          color: "#f4f1ea",
+          background: "#0A0B10",
+          color: "#F3F1EA",
           padding: "72px",
         }}
       >
@@ -25,7 +25,7 @@ export default function OpenGraphImage() {
             fontSize: 22,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "#c4bfb6",
+            color: "#E8C27A",
           }}
         >
           AI Engineer
@@ -39,14 +39,14 @@ export default function OpenGraphImage() {
               marginTop: 24,
               fontSize: 30,
               lineHeight: 1.35,
-              color: "#c4bfb6",
+              color: "#C8C4BA",
               maxWidth: 860,
             }}
           >
-            AI features for a legacy Java product, and public work on agents and retrieval.
+            Building LLM features inside legacy Java systems.
           </div>
         </div>
-        <div style={{ fontSize: 22, color: "#c4bfb6" }}>github.com/Aditya-builds</div>
+        <div style={{ fontSize: 22, color: "#C8C4BA" }}>github.com/Aditya-builds</div>
       </div>
     ),
     { ...size },

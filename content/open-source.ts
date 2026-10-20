@@ -20,7 +20,7 @@ export const gsoc = {
   year: 2027,
   statusLabel: "Preparing",
   summary:
-    "I have not been selected, and I have not listed a contribution to a GSoC organization yet. The useful work before a 2027 proposal is a few reviewed patches in a codebase I want to spend the summer in.",
+    "The goal is selection for Google Summer of Code 2027. The work before a proposal is a few reviewed patches in a project worth spending the summer in.",
   steps: [
     {
       id: "org",

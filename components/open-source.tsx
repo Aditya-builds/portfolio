@@ -3,7 +3,7 @@ import { Section } from "@/components/section";
 
 function EmptyState({ children }: { children: string }) {
   return (
-    <p className="border border-dashed border-line px-5 py-8 text-sm leading-relaxed text-muted">
+    <p className="border border-line bg-raised px-5 py-6 text-base leading-[1.65] text-muted">
       {children}
     </p>
   );
@@ -15,26 +15,24 @@ export function OpenSource() {
       id="open-source"
       index="06"
       label="Open source"
-      title="Nothing accepted yet."
-      lede="Contributions and achievements stay empty until there is something real to put here."
+      title="GSoC 2027."
+      lede="A proposal comes after a few real patches."
     >
-      <article className="border-t border-line pt-6" aria-labelledby="gsoc-title">
+      <article className="border border-line bg-raised p-5 md:p-6" aria-labelledby="gsoc-title">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h3 id="gsoc-title" className="font-serif text-3xl">
+          <h3 id="gsoc-title" className="text-[1.75rem] tracking-[-0.03em]">
             {gsoc.program} {gsoc.year}
           </h3>
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-            {gsoc.statusLabel}
-          </p>
+          <p className="font-mono text-sm text-muted">{gsoc.statusLabel}</p>
         </div>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{gsoc.summary}</p>
+        <p className="mt-4 max-w-2xl text-base leading-[1.65] text-muted">{gsoc.summary}</p>
         <ol className="mt-6 space-y-4">
           {gsoc.steps.map((step, index) => (
             <li key={step.id} className="grid grid-cols-[auto_1fr] gap-4">
               <span
-                className={`mt-1 flex h-6 w-6 items-center justify-center rounded-full border text-[11px] ${
+                className={`mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border font-mono text-sm ${
                   step.done
-                    ? "border-foreground bg-foreground text-background"
+                    ? "border-accent bg-accent text-background"
                     : "border-line text-muted"
                 }`}
                 aria-hidden="true"
@@ -46,22 +44,18 @@ export function OpenSource() {
                   <span className="sr-only">{step.done ? "Done. " : "Not started. "}</span>
                   {step.label}
                 </p>
-                <p className="mt-1 text-sm leading-relaxed text-muted">{step.detail}</p>
+                <p className="mt-1 text-base leading-[1.65] text-muted">{step.detail}</p>
               </div>
             </li>
           ))}
         </ol>
       </article>
 
-      <div className="mt-12">
-        <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-          Contributions
-        </h3>
+      <div className="mt-10">
+        <h3 className="font-mono text-sm text-muted">Contributions</h3>
         {contributions.length === 0 ? (
           <div className="mt-4">
-            <EmptyState>
-              No public contributions are listed yet. Merged patches and reviews will show up here as they happen.
-            </EmptyState>
+            <EmptyState>No contributions listed yet.</EmptyState>
           </div>
         ) : (
           <ul className="mt-4 divide-y divide-line border-t border-line">
@@ -70,30 +64,24 @@ export function OpenSource() {
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <a
                     href={item.url}
-                    className="text-lg underline decoration-line underline-offset-4 hover:decoration-foreground"
+                    className="text-lg text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
                   >
                     {item.project}
                   </a>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-                    {item.date}
-                  </p>
+                  <p className="font-mono text-sm text-muted">{item.date}</p>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.summary}</p>
+                <p className="mt-2 text-base leading-[1.65] text-muted">{item.summary}</p>
               </li>
             ))}
           </ul>
         )}
       </div>
 
-      <div className="mt-12">
-        <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-          Achievements
-        </h3>
+      <div className="mt-10">
+        <h3 className="font-mono text-sm text-muted">Achievements</h3>
         {achievements.length === 0 ? (
           <div className="mt-4">
-            <EmptyState>
-              No awards, publications, or program selections to list yet.
-            </EmptyState>
+            <EmptyState>No awards or selections listed yet.</EmptyState>
           </div>
         ) : (
           <ul className="mt-4 divide-y divide-line border-t border-line">
@@ -103,18 +91,16 @@ export function OpenSource() {
                   {item.url ? (
                     <a
                       href={item.url}
-                      className="text-lg underline decoration-line underline-offset-4 hover:decoration-foreground"
+                      className="text-lg text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
                     >
                       {item.title}
                     </a>
                   ) : (
                     <p className="text-lg">{item.title}</p>
                   )}
-                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-                    {item.date}
-                  </p>
+                  <p className="font-mono text-sm text-muted">{item.date}</p>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.detail}</p>
+                <p className="mt-2 text-base leading-[1.65] text-muted">{item.detail}</p>
               </li>
             ))}
           </ul>

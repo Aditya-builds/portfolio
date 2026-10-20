@@ -38,13 +38,15 @@ Append an object to the array in `content/projects.ts`.
 {
   id: "short-id",
   name: "Project name",
-  summary: "One accurate sentence about what it does.",
+  outcome: "What someone can do with it, in one sentence.",
+  summary: "How it is built, in one or two sentences.",
+  role: "Solo build", // or "Full stack", "Full stack + agent", "Backend"
   stack: ["Java", "Quarkus"],
   year: 2027,
   status: "shipped", // "shipped" | "private" | "sketch"
   repo: "repository-name", // under github.com/Aditya-builds; omit if there is no public repo
   live: "https://example.com", // optional; only when a demo actually responds
-  featured: true, // false parks it under "Early and empty repositories"
+  featured: true, // false keeps the entry in the file and off the page
 }
 ```
 
@@ -56,7 +58,7 @@ Forks of other people's projects and course-note repos are listed in the comment
 
 Edit `content/experience.ts`. Each entry has `role`, `organization`, `period`, `summary`, and `highlights`.
 
-The employer name is `null` on purpose. Set `organization` to the real name when it can be public. Replace `period` (`"About two years"`) with a confirmed range such as `"2024 — Present"`.
+`organization` is `"Available on request"` until the employer name can be public. Replace `period` (`"About two years"`) with a confirmed range such as `"2024 — Present"`.
 
 ### Open source and achievements
 
@@ -88,22 +90,22 @@ Google Summer of Code 2027 is the `gsoc` object in the same file. Set a step's `
 
 ### About, skills, and the one-line pitch
 
-- Pitch, description, and the scrolling labels: `content/site.ts`
+- Pitch and description: `content/site.ts`
 - About paragraphs, degree, and optional school name: `content/about.ts` (`school` is `null` until you want it public)
 - Skill groups: `content/skills.ts`
 - Navigation labels: `content/navigation.ts`
 
-### Contact TODOs
+### Contact
 
 In `content/site.ts`:
 
 | Field | What to set |
 | --- | --- |
-| `email` | A public address. The contact row becomes a `mailto:` link. |
-| `linkedin` | The full profile URL. |
-| `resumeHref` | Put the PDF in `public/` (for example `public/resume.pdf`) and set this to `"/resume.pdf"`. |
+| `email` | Already a `mailto:` link from the public commit address. Change it if you use a different inbox. |
+| `linkedin` | The full profile URL. Until then the site says "Available on request" and does not invent a profile. |
+| `resumeHref` | Put the PDF in `public/` (for example `public/resume.pdf`) and set this to `"/resume.pdf"`. Until then the site says "Available on request". |
 
-Until those are set, the contact section shows a visible **TODO** marker. The employer name in Experience does the same.
+In `content/experience.ts`, replace `organization` (`"Available on request"`) with the employer name when it can be public.
 
 ## Deploy on Render
 

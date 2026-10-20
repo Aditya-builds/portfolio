@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { navigation } from "@/content/navigation";
@@ -20,6 +20,7 @@ export function SiteShell({
   const [paletteSession, setPaletteSession] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [current, setCurrent] = useState("top");
+  const pendingHref = useRef<string | null>(null);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -45,29 +46,57 @@ export function SiteShell({
   }, [menuOpen, paletteOpen]);
 
   useEffect(() => {
-    const nodes = navigation
-      .map((item) => document.getElementById(item.id))
-      .filter((node): node is HTMLElement => Boolean(node));
+    const ids = navigation.map((item) => item.id);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setCurrent(visible.target.id);
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: [0.1, 0.25, 0.5] },
-    );
+    function update() {
+      const atBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (atBottom) {
+        setCurrent(ids[ids.length - 1] ?? "top");
+        return;
+      }
 
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
+      const line = window.scrollY + 88;
+      let next = "top";
+      for (const id of ids) {
+        const node = document.getElementById(id);
+        if (!node) continue;
+        const top = node.getBoundingClientRect().top + window.scrollY;
+        if (top <= line) next = id;
+      }
+      setCurrent(next);
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("hashchange", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("hashchange", update);
+    };
   }, []);
+
+  useEffect(() => {
+    if (paletteOpen || menuOpen) return;
+    const href = pendingHref.current;
+    if (!href) return;
+    pendingHref.current = null;
+    const id = href.replace("#", "");
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (window.location.hash === href) {
+      target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    } else {
+      window.location.hash = href;
+    }
+    target.focus({ preventScroll: true });
+  }, [menuOpen, paletteOpen, reduce]);
 
   return (
     <>
       <a
         href="#content"
-        className="absolute left-4 top-4 z-[70] -translate-y-24 bg-foreground px-4 py-2 text-sm text-background focus:translate-y-0"
+        className="fixed left-4 top-4 z-[70] -translate-y-24 bg-accent px-4 py-2 text-sm text-background focus:translate-y-0"
       >
         Skip to content
       </a>
@@ -86,6 +115,10 @@ export function SiteShell({
         session={paletteSession}
         items={items}
         onOpenChange={setPaletteOpen}
+        onNavigate={(href) => {
+          pendingHref.current = href;
+          setPaletteOpen(false);
+        }}
       />
       <AnimatePresence>
         {menuOpen ? (
@@ -94,7 +127,7 @@ export function SiteShell({
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-0 z-30 bg-background px-5 pt-24 lg:hidden"
+            className="fixed inset-0 z-30 bg-background px-5 pt-24 xl:hidden"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={reduce ? undefined : { opacity: 0 }}
@@ -104,7 +137,7 @@ export function SiteShell({
                 <a
                   key={item.id}
                   href={item.href}
-                  className="border-b border-line py-4 font-serif text-4xl"
+                  className="border-b border-line py-4 text-[2rem] tracking-[-0.03em] hover:text-accent"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}

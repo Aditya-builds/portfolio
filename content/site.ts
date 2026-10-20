@@ -1,35 +1,25 @@
 /**
  * Site-wide facts and contact links.
  *
- * TODO: email — set `email` to a public address.
- * TODO: LinkedIn — set `linkedin` to the full profile URL.
- * TODO: resume PDF — put the file in `public/` (for example `public/resume.pdf`)
- *       and set `resumeHref` to `/resume.pdf`.
+ * Email comes from public commits on github.com/Aditya-builds.
+ * Set `linkedin` to a full profile URL when you want it public.
+ * For a resume, add `public/resume.pdf` and set `resumeHref` to "/resume.pdf".
+ * Until then the site says those two are available on request.
  */
 export const site = {
   name: "Aditya Kumar",
   role: "AI Engineer",
-  pitch:
-    "I add AI features to a legacy Java product, and I am aiming at AI, LLM, and Java + AI roles.",
+  pitch: "Building LLM features inside legacy Java systems.",
   description:
-    "Aditya Kumar is an AI engineer adding AI features to a legacy Java product, with public work on agents and retrieval. Preparing for Google Summer of Code 2027.",
+    "Aditya Kumar is an AI engineer building LLM features inside legacy Java systems, with public work on agents, retrieval, and Quarkus services.",
   github: "https://github.com/Aditya-builds",
   githubHandle: "Aditya-builds",
-  email: null as string | null,
+  email: "aditya.rebuild@gmail.com",
   linkedin: null as string | null,
   resumeHref: null as string | null,
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://aditya-kumar.onrender.com",
 } as const;
-
-export const ticker = [
-  "Java + AI",
-  "Generative AI",
-  "LLM systems",
-  "Agents",
-  "Open source",
-  "GSoC 2027",
-] as const;
 
 export function publicProfiles(): string[] {
   return [site.github, site.linkedin].filter((value): value is string =>
